@@ -13,7 +13,7 @@ echo "==> Building ROFL app with mock SGX support..."
 # Install build dependencies
 echo "==> Installing build dependencies..."
 apt-get update -qq
-apt-get install -y build-essential pkg-config libssl-dev cmake libclang-dev libc6-dev linux-libc-dev
+apt-get install -y build-essential pkg-config libssl-dev cmake libclang-dev libc6-dev linux-libc-dev gcc-multilib g++-multilib
 echo "    ✓ Build tools installed"
 
 # Install Rust if not present
@@ -42,8 +42,11 @@ echo "==> Building test ROFL app with debug-mock-sgx feature..."
 cd tests/runtimes/components-rofl
 
 # Set clang environment variables to help bindgen find system headers
-export BINDGEN_EXTRA_CLANG_ARGS="-I/usr/include/x86_64-linux-gnu -I/usr/include"
-export CPATH="/usr/include/x86_64-linux-gnu:/usr/include"
+GCC_VERSION=$(gcc -dumpversion | cut -d. -f1)
+export BINDGEN_EXTRA_CLANG_ARGS="-I/usr/lib/gcc/x86_64-linux-gnu/$GCC_VERSION/include -I/usr/include/x86_64-linux-gnu -I/usr/include"
+export CPATH="/usr/lib/gcc/x86_64-linux-gnu/$GCC_VERSION/include:/usr/include/x86_64-linux-gnu:/usr/include"
+export C_INCLUDE_PATH="$CPATH"
+export CPLUS_INCLUDE_PATH="$CPATH"
 
 # Enable mock SGX feature
 cargo build --release --features debug-mock-sgx --target x86_64-fortanix-unknown-sgx
