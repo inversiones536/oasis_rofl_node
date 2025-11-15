@@ -1,5 +1,5 @@
-# Oasis Node Configuration for Sapphire ParaTime with ROFL Support
-mode: compute
+# Oasis Node Configuration - Minimal client mode
+mode: client
 
 common:
   data_dir: /app/node/data
@@ -12,21 +12,9 @@ genesis:
   file: /app/node/etc/genesis.json
 
 runtime:
-  provisioner: unconfined
   sgx_loader: /app/node/bin/oasis-core-runtime-loader
   paths:
     - /app/node/rofls/rofl-scheduler.testnet.orc
 
-worker:
-  runtime:
-    provisioner: unconfined
-  
-debug:
-  dont_blame_oasis: true
-  allow_test_keys: true
-
 p2p:
   port: 9200
-
-consensus:
-  validator: false
