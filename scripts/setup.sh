@@ -107,6 +107,7 @@ echo "    ✓ ROFL Scheduler downloaded to $ROFLS_DIR/rofl-scheduler.${NETWORK}.
 # Create identity if it doesn't exist
 if [ ! -f "$NODE_DIR/data/identity.pem" ]; then
     echo "==> Generating node identity..."
+    mkdir -p "$NODE_DIR/data"
     "$BIN_DIR/oasis-node" identity init --datadir "$NODE_DIR/data"
     echo "    ✓ Node identity created"
 else
