@@ -48,11 +48,11 @@ export CPATH="/usr/lib/gcc/x86_64-linux-gnu/$GCC_VERSION/include:/usr/include/x8
 export C_INCLUDE_PATH="$CPATH"
 export CPLUS_INCLUDE_PATH="$CPATH"
 
-# Enable mock SGX feature
-cargo build --release --features debug-mock-sgx --target x86_64-fortanix-unknown-sgx
+# Enable mock SGX feature (use regular x86_64 target, not SGX target)
+cargo build --release --features debug-mock-sgx
 
-echo "==> Converting SGX binary to ORC bundle..."
-BINARY_PATH="target/x86_64-fortanix-unknown-sgx/release/test-runtime-components-rofl"
+echo "==> Converting binary to ORC bundle..."
+BINARY_PATH="target/release/test-runtime-components-rofl"
 
 if [ ! -f "$BINARY_PATH" ]; then
     echo "Error: Binary not found at $BINARY_PATH"
