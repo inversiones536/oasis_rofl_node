@@ -1,94 +1,56 @@
-# ROFL Provider Configuration
-# Use this file to register as a ROFL provider on the marketplace
-
-# Network to register on
-network: testnet  # or 'mainnet'
-
-# ParaTime to provide ROFL hosting for
+network: testnet
 paratime: sapphire
-
-# Provider account name from Oasis CLI
-# Create account with: oasis account create my-rofl-provider
-# Or use existing: oasis account list
-provider: my-rofl-provider  # TODO: Create this account with Oasis CLI
-
-# Your node IDs that will host ROFL apps
-# TLS Public Key from your running node
+provider: metamask
 nodes:
-  - "mXsy6XlJlEK5vJwEfyqRWZLVN5Ss4QpwI6h124IDjjw="
-
-# Scheduler app ID - typically this stays the same
-scheduler_app: "rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg"
-
-# Payment address for receiving ROFL hosting fees
-# Use same account as provider (or specify different address)
-payment_address: "my-rofl-provider"  # Will use account address after creation
-
-# Hosting offers - define different instance sizes and pricing
-# Your Akash deployment: 8 CPUs, 32GB RAM, 200GB storage
+  - mXsy6XlJlEK5vJwEfyqRWZLVN5Ss4QpwI6h124IDjjw=
+scheduler_app: rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg
+payment_address: metamask
 offers:
-  # Small instance offer (conservative allocation)
   - id: small
+    note: Small instance - ideal for lightweight ROFL applications
+    description: |-
+      Small compute instance with 2 vCPUs, 8GB RAM, and 40GB storage.
+      Perfect for testing and lightweight ROFL applications.
+      Hosted on Akash decentralized cloud infrastructure.
     resources:
-      tee: tdx          # TEE type: mock SGX for testing
-      memory: 8192      # RAM in MiB (8 GB)
-      cpus: 2           # Number of CPUs
-      storage: 40000    # Storage in MB (40 GB)
+      tee: tdx
+      memory: 8192
+      cpus: 2
+      storage: 40000
     payment:
       native:
         terms:
-          hourly: 5     # Cost in tokens per hour (adjust as needed)
-    capacity: 10        # Max concurrent instances (conservative)
-
-  # Medium instance offer
+          monthly: "150"
+    capacity: 10
   - id: medium
+    note: Medium instance - balanced compute and memory
+    description: |-
+      Medium compute instance with 4 vCPUs, 16GB RAM, and 80GB storage.
+      Great for standard ROFL applications with moderate resource needs.
+      Hosted on Akash decentralized cloud infrastructure.
     resources:
       tee: tdx
-      memory: 16384     # 16 GB
+      memory: 16384
       cpus: 4
-      storage: 80000    # 80 GB
+      storage: 80000
     payment:
       native:
         terms:
-          hourly: 10
+          monthly: "300"
     capacity: 5
-
-  # Large instance offer (uses most of your resources)
   - id: large
+    note: Large instance - high-performance computing
+    description: |-
+      Large compute instance with 8 vCPUs, 28GB RAM, and 180GB storage.
+      Designed for resource-intensive ROFL applications.
+      Hosted on Akash decentralized cloud infrastructure.
     resources:
       tee: tdx
-      memory: 28672     # 28 GB (leaving some for system)
+      memory: 28672
       cpus: 8
-      storage: 180000   # 180 GB
+      storage: 180000
     payment:
       native:
         terms:
-          hourly: 20
-    capacity: 1         # Only 1 large instance at a time
-
-# Instructions:
-# 1. Install Oasis CLI: 
-#    curl -sL https://github.com/oasisprotocol/cli/releases/download/v0.14.0/oasis_cli_0.14.0_Darwin_arm64.tar.gz | tar xz -C /usr/local/bin
-#
-# 2. Create provider account:
-#    oasis account create my-rofl-provider
-#
-# 3. Fund account with testnet tokens:
-#    oasis account show my-rofl-provider  # Copy address
-#    Visit: https://faucet.testnet.oasis.io/
-#
-# 4. Register as provider:
-#    oasis rofl provider create --config rofl-provider.yaml --network testnet
-#
-# 5. Check status:
-#    oasis rofl provider show --account my-rofl-provider --network testnet
-#
-# 6. Update if needed:
-#    oasis rofl provider update --config rofl-provider.yaml --network testnet
-#
-# Note: Your node must stay running to accept and execute ROFL deployments
-# Node Info:
-#   - TLS Public Key: mXsy6XlJlEK5vJwEfyqRWZLVN5Ss4QpwI6h124IDjjw=
-#   - CometBFT Address: 9E8AD5CC5649649AC81A19ACB6924414B233ED72
-#   - Deployment: 24205365 on Akash
-#   - Resources: 8 CPU, 32GB RAM, 200GB storage
+          monthly: "600"
+    capacity: 1
