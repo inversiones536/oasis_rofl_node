@@ -15,7 +15,7 @@ runtime:
   sgx_loader: /app/node/bin/oasis-core-runtime-loader
   paths:
     - /app/node/rofls/rofl-scheduler.testnet.orc
-  sandbox_binary: ""
+  provisioner: unconfined
 
 p2p:
   port: 9200
