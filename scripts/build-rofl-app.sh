@@ -52,12 +52,24 @@ export CPLUS_INCLUDE_PATH="$CPATH"
 cargo build --release --features debug-mock-sgx
 
 echo "==> Converting binary to ORC bundle..."
-BINARY_PATH="target/release/test-runtime-components-rofl"
 
-if [ ! -f "$BINARY_PATH" ]; then
-    echo "Error: Binary not found at $BINARY_PATH"
+# Find the actual binary name
+echo "==> Looking for built binaries..."
+ls -la target/release/ | grep -E '^-.*x.*test-runtime'
+
+# Try different possible binary names
+if [ -f "target/release/test-runtime-components-rofl" ]; then
+    BINARY_PATH="target/release/test-runtime-components-rofl"
+elif [ -f "target/release/test_runtime_components_rofl" ]; then
+    BINARY_PATH="target/release/test_runtime_components_rofl"
+else
+    echo "Error: Could not find ROFL binary in target/release/"
+    echo "Contents of target/release/:"
+    ls -la target/release/
     exit 1
 fi
+
+echo "    Found binary: $BINARY_PATH"
 
 # Create ORC bundle (just a tar.gz with metadata)
 mkdir -p "$ROFL_DIR"
