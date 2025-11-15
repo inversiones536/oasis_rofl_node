@@ -12,17 +12,10 @@ genesis:
   file: /app/node/etc/genesis.json
 
 runtime:
+  mode: client
   sgx_loader: /app/node/bin/oasis-core-runtime-loader
   paths:
     - /app/node/rofls/rofl-scheduler.testnet.orc
-  provisioner: unconfined
-
-worker:
-  runtime:
-    provisioner: unconfined
-
-debug:
-  allow_unsafe_provisioner: true
 
 p2p:
   port: 9200
