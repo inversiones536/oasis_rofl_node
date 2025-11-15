@@ -41,6 +41,10 @@ cd oasis-sdk
 echo "==> Building test ROFL app with debug-mock-sgx feature..."
 cd tests/runtimes/components-rofl
 
+# Set clang environment variables to help bindgen find system headers
+export BINDGEN_EXTRA_CLANG_ARGS="-I/usr/include/x86_64-linux-gnu -I/usr/include"
+export CPATH="/usr/include/x86_64-linux-gnu:/usr/include"
+
 # Enable mock SGX feature
 cargo build --release --features debug-mock-sgx --target x86_64-fortanix-unknown-sgx
 
