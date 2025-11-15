@@ -59,27 +59,33 @@ echo ""
 echo "==> Downloading oasis-node v$OASIS_NODE_VERSION..."
 OASIS_NODE_URL="https://github.com/oasisprotocol/oasis-core/releases/download/v${OASIS_NODE_VERSION}/oasis_core_${OASIS_NODE_VERSION}_${OS_NAME}_${ARCH_NAME}.tar.gz"
 curl -L "$OASIS_NODE_URL" -o /tmp/oasis-node.tar.gz
-tar -xzf /tmp/oasis-node.tar.gz -C "$BIN_DIR" oasis-node
+mkdir -p /tmp/oasis-node-extract
+tar -xzf /tmp/oasis-node.tar.gz -C /tmp/oasis-node-extract
+find /tmp/oasis-node-extract -name "oasis-node" -type f -exec mv {} "$BIN_DIR/oasis-node" \;
 chmod +x "$BIN_DIR/oasis-node"
-rm /tmp/oasis-node.tar.gz
+rm -rf /tmp/oasis-node.tar.gz /tmp/oasis-node-extract
 echo "    ✓ oasis-node installed to $BIN_DIR/oasis-node"
 
 # Download oasis-core-runtime-loader
 echo "==> Downloading oasis-core-runtime-loader v$OASIS_CORE_RUNTIME_LOADER_VERSION..."
 LOADER_URL="https://github.com/oasisprotocol/oasis-core/releases/download/v${OASIS_CORE_RUNTIME_LOADER_VERSION}/oasis_core_${OASIS_CORE_RUNTIME_LOADER_VERSION}_${OS_NAME}_${ARCH_NAME}.tar.gz"
 curl -L "$LOADER_URL" -o /tmp/loader.tar.gz
-tar -xzf /tmp/loader.tar.gz -C "$BIN_DIR" oasis-core-runtime-loader
+mkdir -p /tmp/loader-extract
+tar -xzf /tmp/loader.tar.gz -C /tmp/loader-extract
+find /tmp/loader-extract -name "oasis-core-runtime-loader" -type f -exec mv {} "$BIN_DIR/oasis-core-runtime-loader" \;
 chmod +x "$BIN_DIR/oasis-core-runtime-loader"
-rm /tmp/loader.tar.gz
+rm -rf /tmp/loader.tar.gz /tmp/loader-extract
 echo "    ✓ oasis-core-runtime-loader installed to $BIN_DIR/oasis-core-runtime-loader"
 
 # Download Oasis CLI
 echo "==> Downloading Oasis CLI v$OASIS_CLI_VERSION..."
 CLI_URL="https://github.com/oasisprotocol/cli/releases/download/v${OASIS_CLI_VERSION}/oasis_cli_${OASIS_CLI_VERSION}_${OS_NAME}_${ARCH_NAME}.tar.gz"
 curl -L "$CLI_URL" -o /tmp/oasis-cli.tar.gz
-tar -xzf /tmp/oasis-cli.tar.gz -C "$BIN_DIR" oasis
+mkdir -p /tmp/oasis-cli-extract
+tar -xzf /tmp/oasis-cli.tar.gz -C /tmp/oasis-cli-extract
+find /tmp/oasis-cli-extract -name "oasis" -type f -exec mv {} "$BIN_DIR/oasis" \;
 chmod +x "$BIN_DIR/oasis"
-rm /tmp/oasis-cli.tar.gz
+rm -rf /tmp/oasis-cli.tar.gz /tmp/oasis-cli-extract
 echo "    ✓ Oasis CLI installed to $BIN_DIR/oasis"
 
 # Download genesis file
