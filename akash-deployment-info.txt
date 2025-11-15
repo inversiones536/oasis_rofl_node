@@ -1,0 +1,20 @@
+# Akash Deployment Information
+# Generated: Fri Nov 15 2025
+
+export AKASH_DSEQ=24204063
+AKASH_PROVIDER=akash1k8wqz7znj8mj783nk0nz30xztnck4r3whj56nf
+AKASH_FROM=my-rofl-wallet
+AKASH_ACCOUNT_ADDRESS=akash1eq402fqysgtxt0m2gjax89d627u5t0m3r49lrh
+AKASH_CHAIN_ID=akashnet-2
+AKASH_NODE=https://rpc.akashnet.net:443
+
+# Deployment Status: ACTIVE & RUNNING ✅
+# Price: 60.458758 uakt/block (~$12-15/month)
+# Provider: provider.akash.isites.pl (Poland)
+# Ports: 26656 (consensus) on :31820, 9200 (p2p) on :32395
+
+# Quick Commands:
+# Shell:  provider-services lease-shell oasis-rofl-node /bin/bash --dseq 24203807 --provider akash1k8wqz7znj8mj783nk0nz30xztnck4r3whj56nf --from my-rofl-wallet --node https://rpc.akashnet.net:443 --keyring-backend os --home ~/.akash --stdin --tty
+# Logs:   provider-services lease-logs --dseq 24203807 --provider akash1k8wqz7znj8mj783nk0nz30xztnck4r3whj56nf --from my-rofl-wallet --node https://rpc.akashnet.net:443 --keyring-backend os --home ~/.akash --follow
+# Status: provider-services lease-status --dseq 24203807 --provider akash1k8wqz7znj8mj783nk0nz30xztnck4r3whj56nf --from my-rofl-wallet --node https://rpc.akashnet.net:443 --keyring-backend os --home ~/.akash
+# Close:  akash tx deployment close --dseq 24203807 --from my-rofl-wallet --chain-id akashnet-2 --node https://rpc.akashnet.net:443 --gas-prices="0.025uakt" --gas="auto" --gas-adjustment=1.5 --yes
