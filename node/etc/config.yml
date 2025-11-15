@@ -11,7 +11,10 @@ common:
 genesis:
   file: /app/node/etc/genesis.json
 
-p2p:
-  port: 9200
-  seeds:
-    - "05EAC99BB37F6DAAD4B13386FF5E087ACBDDC450@testnet-seed.oasis.io:26656"
+consensus:
+  p2p:
+    port: 9200
+  tendermint:
+    seeds:
+      - "HcDFrTp/MqRHtju5bCx6TIhIMd6X/0ZQ3lUG73q5898=@35.247.24.212:26656"
+      - "kqsc8ETIgG9LCmW5HhSEUW80WIpwKhS7hRQd8FrnkJ0=@34.140.116.202:26656"
