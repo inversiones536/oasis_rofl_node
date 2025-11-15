@@ -53,19 +53,23 @@ cargo build --release --features debug-mock-sgx
 
 echo "==> Converting binary to ORC bundle..."
 
+# The target directory is at the workspace root (oasis-sdk/)
+WORKSPACE_ROOT="$BUILD_DIR/oasis-sdk"
+TARGET_DIR="$WORKSPACE_ROOT/target/release"
+
 # Find the actual binary name
-echo "==> Looking for built binaries..."
-ls -la target/release/ | grep -E '^-.*x.*test-runtime'
+echo "==> Looking for built binaries in $TARGET_DIR..."
+ls -la "$TARGET_DIR" 2>/dev/null | grep -E 'test.*runtime' || true
 
 # Try different possible binary names
-if [ -f "target/release/test-runtime-components-rofl" ]; then
-    BINARY_PATH="target/release/test-runtime-components-rofl"
-elif [ -f "target/release/test_runtime_components_rofl" ]; then
-    BINARY_PATH="target/release/test_runtime_components_rofl"
+if [ -f "$TARGET_DIR/test-runtime-components-rofl" ]; then
+    BINARY_PATH="$TARGET_DIR/test-runtime-components-rofl"
+elif [ -f "$TARGET_DIR/test_runtime_components_rofl" ]; then
+    BINARY_PATH="$TARGET_DIR/test_runtime_components_rofl"
 else
-    echo "Error: Could not find ROFL binary in target/release/"
-    echo "Contents of target/release/:"
-    ls -la target/release/
+    echo "Error: Could not find ROFL binary in $TARGET_DIR"
+    echo "Contents of $TARGET_DIR:"
+    ls -la "$TARGET_DIR" 2>/dev/null || echo "Directory does not exist"
     exit 1
 fi
 
