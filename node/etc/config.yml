@@ -1,5 +1,4 @@
 # Oasis Sapphire Testnet Client Node
-# Note: ROFL runtime paths removed as they require SGX hardware
 mode: client
 
 common:
@@ -14,10 +13,5 @@ genesis:
 
 p2p:
   port: 9200
-
-consensus:
-  # Bootstrap nodes for Sapphire testnet
-  tendermint:
-    p2p:
-      persistent_peer:
-        - "05EAC99BB37F6DAAD4B13386FF5E087ACBDDC450@testnet-seed.oasis.io:26656"
+  seeds:
+    - "05EAC99BB37F6DAAD4B13386FF5E087ACBDDC450@testnet-seed.oasis.io:26656"
