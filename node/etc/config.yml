@@ -3,10 +3,8 @@
 
 mode: client
 
-datadir: /node/data
-
 common:
-  data_dir: /node/data
+  data_dir: /app/node/data
   log:
     format: JSON
     level:
@@ -18,7 +16,7 @@ genesis:
   # Download genesis file from:
   # Mainnet: https://github.com/oasisprotocol/mainnet-artifacts/releases/download/2024-11-12/genesis.json
   # Testnet: https://github.com/oasisprotocol/testnet-artifacts/releases/download/2024-11-26/genesis.json
-  file: /node/etc/genesis.json
+  file: /app/node/etc/genesis.json
 
 consensus:
   # Consensus client will not start when running in stateless client mode
@@ -36,44 +34,15 @@ p2p:
 
 runtime:
   # SGX loader is required for TEE ParaTimes (Sapphire)
-  sgx_loader: /node/bin/oasis-core-runtime-loader
+  sgx_loader: /app/node/bin/oasis-core-runtime-loader
   
   # Paths to ROFL bundles (if hosting directly, not via marketplace)
   paths:
-    # Download Scheduler ROFL app from:
-    # https://github.com/oasisprotocol/oasis-sdk/releases
-    # Example: rofl-scheduler.testnet.orc or rofl-scheduler.mainnet.orc
-    - /node/rofls/rofl-scheduler.testnet.orc
-  
-  runtimes:
-    # Sapphire Testnet RONL with SGX
-    - id: "000000000000000000000000000000000000000000000000a6d1e3ebf60dff6c"
-      config:
-        # Enable expensive queries for full functionality
-        allowed_queries:
-          - all_expensive: true
-      components:
-        # ROFL Scheduler component configuration
-        # Replace with your Scheduler app ID from the marketplace
-        - id: rofl.rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg
-          permissions:
-            - bundle_add
-            - bundle_remove
-            - volume_add
-            - volume_remove
-          config:
-            rofl_scheduler:
-              # Replace with your ROFL provider address
-              provider_address: "REPLACE_WITH_YOUR_PROVIDER_ADDRESS"
-              # List your offers matching rofl-provider.yaml
-              offers:
-                - small
-              # Resource capacity for this node
-              capacity:
-                instances: 24
-                memory: 65536     # 64 GB in MiB
-                cpus: 24
-                storage: 549755813888  # 512 GB in bytes
+    - /app/node/rofls/rofl-scheduler.testnet.orc
+
+# Optional: Environment configuration
+ias:
+  proxy_addr: []
 
 # Optional: Stateless client configuration (faster bootstrapping, less resources)
 # Uncomment to enable stateless mode
