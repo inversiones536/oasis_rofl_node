@@ -17,5 +17,12 @@ runtime:
     - /app/node/rofls/rofl-scheduler.testnet.orc
   provisioner: unconfined
 
+worker:
+  runtime:
+    provisioner: unconfined
+
+debug:
+  allow_unsafe_provisioner: true
+
 p2p:
   port: 9200
