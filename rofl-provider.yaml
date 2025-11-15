@@ -2,7 +2,7 @@ network: testnet
 paratime: sapphire
 provider: metamask
 nodes:
-  - mXsy6XlJlEK5vJwEfyqRWZLVN5Ss4QpwI6h124IDjjw=
+  - Xr7kRXU0ZMB9+3qkmIoKrh4EJF3cvV4+pQXWGTntVa4=
 scheduler_app: rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg
 payment_address: metamask
 offers:
