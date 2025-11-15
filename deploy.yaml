@@ -23,22 +23,24 @@ services:
     command:
       - "bash"
       - "-c"
-        args:
-          - >-
-            apt-get update &&
-            apt-get install -y curl jq git ca-certificates sudo &&
-            useradd -m -s /bin/bash oasis &&
-            git clone https://github.com/inversiones536/oasis_rofl_node.git /app &&
-            chown -R oasis:oasis /app &&
-            cd /app &&
-            chmod +x scripts/*.sh &&
-            sudo -u oasis ./scripts/setup.sh &&
-            echo \"Setup complete, starting node...\" &&
-            echo \"NOTE: This is a basic client node. ROFL apps require SGX hardware.\" &&
-            echo \"To use ROFL, either:\" &&
-            echo \"  1. Deploy on SGX-capable hardware\" &&
-            echo \"  2. Use Oasis testnet's existing ROFL scheduler services\" &&
-            exec sudo -u oasis ./scripts/start-node.shprofiles:
+    args:
+      - >-
+        apt-get update &&
+        apt-get install -y curl jq git ca-certificates sudo &&
+        useradd -m -s /bin/bash oasis &&
+        git clone https://github.com/inversiones536/oasis_rofl_node.git /app &&
+        chown -R oasis:oasis /app &&
+        cd /app &&
+        chmod +x scripts/*.sh &&
+        sudo -u oasis ./scripts/setup.sh &&
+        echo "Setup complete, starting node..." &&
+        echo "NOTE: This is a basic client node. ROFL apps require SGX hardware." &&
+        echo "To use ROFL, either:" &&
+        echo "  1. Deploy on SGX-capable hardware" &&
+        echo "  2. Use Oasis testnet's existing ROFL scheduler services" &&
+        exec sudo -u oasis ./scripts/start-node.sh
+
+profiles:
   compute:
     rofl-node:
       resources:
