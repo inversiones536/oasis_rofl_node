@@ -13,7 +13,7 @@ echo "==> Building ROFL app with mock SGX support..."
 # Install build dependencies
 echo "==> Installing build dependencies..."
 apt-get update -qq
-apt-get install -y -qq build-essential pkg-config libssl-dev cmake > /dev/null 2>&1
+apt-get install -y -qq build-essential pkg-config libssl-dev cmake libclang-dev > /dev/null 2>&1
 echo "    ✓ Build tools installed"
 
 # Install Rust if not present
