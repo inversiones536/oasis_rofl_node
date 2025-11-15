@@ -1,0 +1,51 @@
+# .gitignore for Oasis ROFL Node
+
+# Node data and runtime files
+node/data/
+node/bin/oasis-node
+node/bin/oasis-core-runtime-loader
+node/bin/oasis
+node/etc/genesis.json
+node/rofls/*.orc
+
+# Keep directory structure
+!node/bin/.gitkeep
+!node/data/.gitkeep
+!node/rofls/.gitkeep
+
+# Environment files
+.env
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE files
+.vscode/
+.idea/
+*.iml
+
+# Backup files
+*.bak
+*.backup
+
+# Keys and sensitive data (CRITICAL - NEVER COMMIT)
+*.pem
+*.key
+wallet.json
+keystore/
+**/identity/
+**/identity.pem
+
+# Akash deployment
+.akash/
+deployments/
+certificates/

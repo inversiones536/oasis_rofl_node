@@ -1,0 +1,88 @@
+# Oasis Node Configuration for Sapphire ParaTime Client with ROFL Support
+# This configuration enables your node to run as a ROFL node on Sapphire
+
+mode: client
+
+datadir: /node/data
+
+common:
+  data_dir: /node/data
+  log:
+    format: JSON
+    level:
+      cometbft: info
+      cometbft/context: error
+      default: info
+
+genesis:
+  # Download genesis file from:
+  # Mainnet: https://github.com/oasisprotocol/mainnet-artifacts/releases/download/2024-11-12/genesis.json
+  # Testnet: https://github.com/oasisprotocol/testnet-artifacts/releases/download/2024-11-26/genesis.json
+  file: /node/etc/genesis.json
+
+consensus:
+  # Consensus client will not start when running in stateless client mode
+  # See stateless configuration section if you want to enable stateless mode
+
+p2p:
+  # Port used for P2P communication
+  port: 9200
+  seeds:
+    # Replace with actual seed node addresses from:
+    # Mainnet: https://docs.oasis.io/node/network/mainnet
+    # Testnet: https://docs.oasis.io/node/network/testnet
+    # Format: "ID@IP:port"
+    - "REPLACE_WITH_SEED_NODE_ADDRESS"
+
+runtime:
+  # SGX loader is required for TEE ParaTimes (Sapphire)
+  sgx_loader: /node/bin/oasis-core-runtime-loader
+  
+  # Paths to ROFL bundles (if hosting directly, not via marketplace)
+  paths:
+    # Download Scheduler ROFL app from:
+    # https://github.com/oasisprotocol/oasis-sdk/releases
+    # Example: rofl-scheduler.testnet.orc or rofl-scheduler.mainnet.orc
+    - /node/rofls/rofl-scheduler.testnet.orc
+  
+  runtimes:
+    # Sapphire Testnet RONL with SGX
+    - id: "000000000000000000000000000000000000000000000000a6d1e3ebf60dff6c"
+      config:
+        # Enable expensive queries for full functionality
+        allowed_queries:
+          - all_expensive: true
+      components:
+        # ROFL Scheduler component configuration
+        # Replace with your Scheduler app ID from the marketplace
+        - id: rofl.rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg
+          permissions:
+            - bundle_add
+            - bundle_remove
+            - volume_add
+            - volume_remove
+          config:
+            rofl_scheduler:
+              # Replace with your ROFL provider address
+              provider_address: "REPLACE_WITH_YOUR_PROVIDER_ADDRESS"
+              # List your offers matching rofl-provider.yaml
+              offers:
+                - small
+              # Resource capacity for this node
+              capacity:
+                instances: 24
+                memory: 65536     # 64 GB in MiB
+                cpus: 24
+                storage: 549755813888  # 512 GB in bytes
+
+# Optional: Stateless client configuration (faster bootstrapping, less resources)
+# Uncomment to enable stateless mode
+# mode: client-stateless
+# consensus:
+#   light_client:
+#     trust:
+#       height: REPLACE_WITH_RECENT_HEIGHT
+#       hash: "REPLACE_WITH_BLOCK_HASH"
+#       runtime_id: "000000000000000000000000000000000000000000000000a6d1e3ebf60dff6c"
+#     providers:
+#       - "grpc.testnet.oasis.io:443"

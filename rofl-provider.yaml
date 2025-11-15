@@ -1,0 +1,74 @@
+# ROFL Provider Configuration
+# Use this file to register as a ROFL provider on the marketplace
+
+# Network to register on
+network: testnet  # or 'mainnet'
+
+# ParaTime to provide ROFL hosting for
+paratime: sapphire
+
+# Provider account name from Oasis CLI
+# Create account with: oasis account create
+# Or use existing: oasis account list
+provider: test:alice  # Replace with your account name
+
+# Your node IDs that will host ROFL apps
+# Get node ID with: oasis-node identity show-id -a /node/data/identity.pem
+# Or: oasis-node control status -a unix:/node/data/internal.sock
+nodes:
+  - "REPLACE_WITH_YOUR_NODE_ID"
+
+# Scheduler app ID - typically this stays the same
+scheduler_app: "rofl1qrqw99h0f7az3hwt2cl7yeew3wtz0fxunu7luyfg"
+
+# Payment address for receiving ROFL hosting fees
+# This should be an Oasis address (bech32 format starting with 'oasis1')
+payment_address: "test:alice"  # Replace with your payment account
+
+# Hosting offers - define different instance sizes and pricing
+offers:
+  # Small instance offer
+  - id: small
+    resources:
+      tee: tdx          # TEE type: tdx or sgx
+      memory: 4096      # RAM in MiB (4 GB)
+      cpus: 2           # Number of CPUs
+      storage: 20000    # Storage in MB (20 GB)
+    payment:
+      native:
+        terms:
+          hourly: 10    # Cost in tokens per hour
+    capacity: 50        # Max concurrent instances
+
+  # Medium instance offer (optional)
+  - id: medium
+    resources:
+      tee: tdx
+      memory: 8192      # 8 GB
+      cpus: 4
+      storage: 50000    # 50 GB
+    payment:
+      native:
+        terms:
+          hourly: 20
+    capacity: 25
+
+  # Large instance offer (optional)
+  - id: large
+    resources:
+      tee: tdx
+      memory: 16384     # 16 GB
+      cpus: 8
+      storage: 100000   # 100 GB
+    payment:
+      native:
+        terms:
+          hourly: 40
+    capacity: 10
+
+# Instructions:
+# 1. Update the values marked with "REPLACE_WITH_"
+# 2. Adjust resource allocations and pricing to match your hardware and business model
+# 3. Register provider: oasis rofl provider create
+# 4. Update provider: oasis rofl provider update
+# 5. Check status: oasis rofl provider show
