@@ -3,45 +3,38 @@ version: "2.0"
 
 services:
   oasis-rofl-node:
-    # Using ubuntu base image - will clone repo and setup
     image: ubuntu:22.04
     
-    # Expose required ports
     expose:
-      # Consensus P2P port
       - port: 26656
         as: 26656
         to:
           - global: true
-        protocol: tcp
-      
-      # Runtime P2P port
       - port: 9200
         as: 9200
         to:
           - global: true
-        protocol: tcp
     
-    # Environment variables
     env:
       - NETWORK=testnet
       - OASIS_NODE_VERSION=24.2
       - DEBIAN_FRONTEND=noninteractive
     
-    # Startup command
     command:
       - "bash"
       - "-c"
     args:
       - >-
         apt-get update &&
-        apt-get install -y curl jq git ca-certificates &&
-        git clone https://github.com/YOUR_USERNAME/YOUR_REPO.git /app &&
+        apt-get install -y curl jq git ca-certificates sudo &&
+        useradd -m -s /bin/bash oasis &&
+        git clone https://github.com/inversiones536/oasis_rofl_node.git /app &&
+        chown -R oasis:oasis /app &&
         cd /app &&
         chmod +x scripts/*.sh &&
-        ./scripts/setup.sh &&
+        sudo -u oasis ./scripts/setup.sh &&
         echo "Setup complete, starting node..." &&
-        exec ./scripts/start-node.sh
+        exec sudo -u oasis ./scripts/start-node.sh
 
 profiles:
   compute:
@@ -52,38 +45,14 @@ profiles:
         memory:
           size: 32Gi
         storage:
-          # Main storage
           - size: 200Gi
-            attributes:
-              persistent: true
-              class: beta3
-        
-        # TEE requirement - uncomment if TEE-capable provider available
-        # gpu:
-        #   units: 0
-        #   attributes:
-        #     vendor:
-        #       intel:
-        #         - sgx
 
   placement:
     akash:
-      attributes:
-        # Require persistent storage
-        persistent: true
-        
-      # Optional: specify region
-      # region: us-west
-      
-      signedBy:
-        anyOf:
-          # List of trusted providers (optional)
-          # - "akash1..."
-      
       pricing:
         rofl-node:
           denom: uakt
-          amount: 10000  # 0.01 AKT per block (~10 AKT/month)
+          amount: 10000
 
 deployment:
   oasis-rofl-node:
