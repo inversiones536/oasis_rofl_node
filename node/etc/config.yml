@@ -1,4 +1,4 @@
-# Oasis Sapphire Testnet Client Node with ROFL Runtime
+# Oasis Sapphire Testnet Client Node
 mode: client
 
 common:
@@ -18,11 +18,3 @@ p2p:
   seeds:
     - "HcDFrTp/MqRHtju5bCx6TIhIMd6X/0ZQ3lUG73q5898=@35.247.24.212:26656"
     - "kqsc8ETIgG9LCmW5HhSEUW80WIpwKhS7hRQd8FrnkJ0=@34.140.116.202:26656"
-
-# ROFL Runtime Configuration
-runtime:
-  mode: client
-  paths:
-    - /app/node/rofls
-  environment: sgx
-  sgx_loader: /usr/bin/oasis-core-runtime-loader
